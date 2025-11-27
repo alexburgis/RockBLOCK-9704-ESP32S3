@@ -24,6 +24,8 @@ int sendJspr(const char *buffer, size_t length)
         {
             return -1;
         }
+        // Delay to give modem processing time after command transmission
+        delay(10);
 #ifdef DEBUG
         char * terminator = strpbrk(buffer, "\r");
         *terminator = '\0';

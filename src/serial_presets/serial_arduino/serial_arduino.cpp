@@ -32,7 +32,10 @@ int readArduino(char * bytes, const uint16_t length)
 int writeArduino(const char * data, const uint16_t length)
 {
     if (serialPortArduino == nullptr) return 0;
-    return (int)serialPortArduino->write(data, length);
+    int written = (int)serialPortArduino->write(data, length);
+    // Flush TX buffer to ensure complete transmission before returning
+    static_cast<HardwareSerial*>(serialPortArduino)->flush();
+    return written;
 }
 
 int peekArduino(void)
